@@ -59,6 +59,6 @@ def pre_save_cart_receiver(sender,instance,*args,**kwargs):
     if(instance.subtotal >0):
         instance.total = instance.subtotal
     else:
-        instance.total = 0.00    
+        instance.total = 0.00
 
 pre_save.connect(pre_save_cart_receiver,sender=Cart)
