@@ -1,1 +1,51 @@
-<h1>{{ brand_name }}</h1>
+{% url "home" as home_url %}
+{% url "products:list" as product_list_url %}
+{% url "cart:home" as cart_url %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+  <a class="navbar-brand" href="{{home_url}}">{% if brand_name %}{{ brand_name }}{% endif %}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if request.path == home_url %}active{% endif %}">
+        <a class="nav-link" href="{{home_url}}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% if request.path == product_list_url %}active{% endif %}">
+        <a class="nav-link disabled" href="{{product_list_url}}">Products</a>
+      </li>
+      <li class="nav-item {% if request.path == cart_url %}active{% endif %}">
+        <a class="nav-link disabled" href="{{cart_url}}">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contacts</a>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Logout</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Register</a>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Login</a>
+        </li>
+      </li>
+      {% endif %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    {% include "search/snippets/search-form.html" %}
+  </div>
+</nav>
