@@ -17,7 +17,9 @@
         <a class="nav-link disabled" href="{{product_list_url}}">Products</a>
       </li>
       <li class="nav-item {% if request.path == cart_url %}active{% endif %}">
-        <a class="nav-link disabled" href="{{cart_url}}">Cart</a>
+        <a class="nav-link disabled" href="{{cart_url}}">{{ request.session.cart_items }}
+          <i class="fas fa-shopping-cart"></i>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Contacts</a>
