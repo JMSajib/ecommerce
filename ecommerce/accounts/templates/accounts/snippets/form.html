@@ -5,5 +5,10 @@
     <input type="hidden" name="next" value="{{next_url}}">
   {% endif %}
   {{ form }}
-  <button type="submit" class="btb btn-primary" name="button">Login</button>
+  {% if action_url %}
+    <button type="submit" class="btb btn-primary" name="button">Submit</button>
+  {% else %}
+    <button type="submit" class="btb btn-primary" name="button">Login</button>
+  {% endif %}
+
 </form>
