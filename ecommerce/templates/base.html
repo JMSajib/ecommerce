@@ -24,7 +24,8 @@
         productForm.submit(function(event){
           event.preventDefault();
           var thisForm = $(this);
-          var actionEndpoint = thisForm.attr("action");
+          // var actionEndpoint = thisForm.attr("action");
+          var actionEndpoint = thisForm.attr("data-endpoint");
           var httpMethod = thisForm.attr("method");
           var formData = thisForm.serialize();
 
@@ -42,6 +43,10 @@
               }
               var itemCount = $(".cart-item")
               itemCount.text(data.cartItemCount)
+              var currentPath = window.location.href
+              if(currentPath.indexOf("cart") != -1){
+                refreshCart()
+              }
             },
             error: function(errorData){
               console.log("Error");
@@ -50,7 +55,48 @@
           })
 
         })
+        function refreshCart(){
+          console.log("In current Cart Now")
+          var cartTable = $(".cart-table")
+          var cartBody  = cartTable.find(".cart-body")
+          var currentUrl = window.location.href
+          // cartBody.html("<h1>Changed</h1>")
+          var productsRows = cartBody.find(".cart-product")
 
+
+          var refreshCartUrl = '/api/cart/';
+          var refreshCartMethod = "GET";
+          var data={};
+          $.ajax({
+            url: refreshCartUrl,
+            method: refreshCartMethod,
+            data: data,
+            success: function(data){
+              console.log("Success")
+              var hiddenCartRemoveForm = $(".cart-item-remove-form")
+              if(data.products.length > 0){
+                productsRows.html(" ")
+                i=data.products.length
+                $.each(data.products,function(index,value){
+                  var newCartItemRemove = hiddenCartRemoveForm.clone()
+                  newCartItemRemove.css("display","block")
+                  newCartItemRemove.find(".cart-item-product-id").val(value.id)
+                  cartBody.prepend("<tr><th scope=\"row\">" + i + "</th><td><a href='" + value.url + "'>" + value.name + "</a>" + newCartItemRemove.html() + "</td><td>" + value.price + "</td></tr>")
+                  i--
+                })
+                cartBody.find(".cart-subtotal").text(data.subtotal)
+                cartBody.find(".cart-total").text(data.total)
+              }
+              else{
+                window.location.href = currentUrl
+              }
+            },
+            error: function(errorData){
+              console.log("Error")
+              console.log(errorData)
+            }
+          })
+        }
       })
 
     </script>
