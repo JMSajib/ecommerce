@@ -5,8 +5,8 @@
   <div class="card-body">
     <h5 class="card-title">{{ instance.title }}</h5>
     <p class="card-text">{{ instance.description }}</p>
-    <a href="{{ instance.get_absolute_url }}" class="btn btn-primary">View</a>
+    <a href="{{ instance.get_absolute_url }}" class="btn btn-primary">View</a><br>
     <!-- <a href="{% url "products:details" slug=instance.slug %}" class="btn btn-warning">View</a> -->
-      {% include "products/snippets/update-cart.html" with product=instance cart=cart %}
+      <br>{% include "products/snippets/update-cart.html" with product=instance cart=cart %}
   </div>
 </div>

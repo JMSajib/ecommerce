@@ -26,7 +26,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contacts</a>
+        <a class="nav-link" href="{% url 'contact' %}">Contacts</a>
       </li>
       {% if request.user.is_authenticated %}
       <li class="nav-item">
