@@ -11,7 +11,6 @@ class CartManager(models.Manager):
         qs = self.get_queryset().filter(id=cart_id)
         if(qs.count()  ==  1):
             new_obj = False
-            print("Cart ID Exists")
             cart_obj = qs.first()
             if(request.user.is_authenticated() and cart_obj.user is None):
                 cart_obj.user = request.user
