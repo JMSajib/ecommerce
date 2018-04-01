@@ -5,6 +5,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from addresses.views import checkout_address_create_view,checkout_address_reuse_view
+from billing.views import payment_method_view
 from carts.views import cart_detail_api_view
 from accounts.views import LoginView,RegisterView,guest_register_view
 from .views import home_page,contact_page
@@ -19,6 +20,7 @@ urlpatterns = [
     url(r'^checkout/address/create/$',checkout_address_create_view,name="checkout_address_create"),
     url(r'^checkout/address/reuse/$',checkout_address_reuse_view,name="checkout_address_reuse"),
     url(r'^register/',RegisterView.as_view(),name="register"),
+    url(r'^billing/payment/$',payment_method_view,name="payment"),
     url(r'^products/',include("products.urls",namespace="products")),
     url(r'^search/',include("search.urls",namespace="search")),
     url(r'^cart/',include("carts.urls",namespace="cart")),
